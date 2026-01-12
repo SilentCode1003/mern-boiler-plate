@@ -1,0 +1,37 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sequelize:init": "sequelize init",
+    "db:setup": "node database/utility/db.setup.js",
+    "db:status": "node database/utility/checkmigrations.js",
+    "db:migrate": "npx sequelize-cli db:migrate && node database/utility/generateModels.js",
+    "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "db:seed:undo": "npx sequelize-cli db:seed:undo:all",
+    "db:drop": "node settings/reset_confirmation.js \"⚠️ WARNING: This will DROP the database. Type 'yes' to continue: \" && npx sequelize-cli db:drop",
+    "db:create": "npx sequelize-cli db:create",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:reset": "node settings/reset_confirmation.js \"⚠️ WARNING: This will RESET the database. Type 'yes' to continue: \" && npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed",
+    "env:setup": "node settings/setup_env.js",
+    "db:migrate:prod": "npx sequelize-cli db:migrate --migrations-path database/migrations/alter && node database/utility/generateModels.js",
+    "db:migrate:prod:undo": "npx sequelize-cli db:migrate:undo --migrations-path database/migrations/alter"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "fs-extra": "^11.3.3",
+    "mysql2": "^3.16.0",
+    "sequelize": "^6.37.7",
+    "sequelize-pack": "^1.0.4",
+    "umzug": "^3.8.2"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.5"
+  }
+}
